@@ -1,0 +1,20 @@
+runpod_volume:
+  # Esta es la ruta absoluta raíz donde tienes tus modelos en el volumen de RunPod
+  base_path: /workspace/ComfyUI/models
+  
+  # Aquí mapeamos las carpetas. ComfyUI unirá el 'base_path' con estos nombres.
+  checkpoints: checkpoints
+  loras: loras
+  latent_upscale_models: latent_upscale_models
+  
+  # NOTA: En ComfyUI, los text encoders (como t5xxl o clip_l) se suelen guardar 
+  # en la carpeta 'clip'. Si tu carpeta física se llama 'text_encoders', 
+  # debemos decirle a ComfyUI que la trate como su carpeta 'clip' o mapear ambas:
+  clip: text_encoders
+  text_encoders: text_encoders
+  
+  # He agregado otros comunes por si en el futuro los subes a tu volumen:
+  vae: vae
+  controlnet: controlnet
+  upscale_models: upscale_models
+  embeddings: embeddings

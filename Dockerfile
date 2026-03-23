@@ -40,7 +40,7 @@ RUN /usr/bin/yes | comfy --workspace /comfyui install --version "${COMFYUI_VERSI
 
 WORKDIR /comfyui/custom_nodes
 # AQUI AGREGAMOS EL NODO DE KJNodes
-RUN git clone https://github.com/evansd/ComfyMath.git \
+RUN git clone https://github.com/evanspearman/ComfyMath.git \
     && git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git \
     && git clone https://github.com/kijai/ComfyUI-KJNodes.git \
     && find . -maxdepth 2 -name "requirements.txt" -exec uv pip install --no-cache-dir -r {} \;

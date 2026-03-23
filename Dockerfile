@@ -39,8 +39,10 @@ RUN /usr/bin/yes | comfy --workspace /comfyui install --version "${COMFYUI_VERSI
     && rm -rf /root/.cache/pip /root/.cache/uv /comfyui/.git /tmp/* /var/tmp/*
 
 WORKDIR /comfyui/custom_nodes
+# AQUI AGREGAMOS EL NODO DE KJNodes
 RUN git clone https://github.com/evansd/ComfyMath.git \
     && git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git \
+    && git clone https://github.com/kijai/ComfyUI-KJNodes.git \
     && find . -maxdepth 2 -name "requirements.txt" -exec uv pip install --no-cache-dir -r {} \;
 
 RUN uv pip install runpod requests

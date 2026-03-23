@@ -13,7 +13,7 @@ COMFY_INPUT_DIR = os.getenv("COMFY_INPUT_DIR", "/comfyui/input")
 COMFY_OUTPUT_DIR = os.getenv("COMFY_OUTPUT_DIR", "/comfyui/output")
 WORKFLOW_PATH = os.getenv("WORKFLOW_PATH", "/workflow_api.json")
 COMFY_POLLING_INTERVAL = int(os.getenv("COMFY_POLLING_INTERVAL", "2"))
-COMFY_TIMEOUT = int(os.getenv("COMFY_TIMEOUT", "600"))
+COMFY_TIMEOUT = int(os.getenv("COMFY_TIMEOUT", "800"))
 
 OUTPUT_NODE_ID = "273"
 

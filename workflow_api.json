@@ -69,7 +69,7 @@
   },
   "267:243": {
     "inputs": {
-      "text_encoder": "gemma_3_12B_it_fp4_mixed.safetensors",
+      "text_encoder": "gemma_3_12B_it.safetensors",
       "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors",
       "device": "default"
     },

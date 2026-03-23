@@ -1,5 +1,5 @@
 runpod_volume:
-  base_path: /workspace/ComfyUI/models
+  base_path: /runpod-volume/ComfyUI/models
 
   checkpoints: checkpoints
   clip: text_encoders

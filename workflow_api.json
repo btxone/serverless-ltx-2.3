@@ -1,0 +1,666 @@
+{
+  "269": {
+    "inputs": {
+      "image": "Guerlain-Aqua-Allegoria-Granada-Salvia-Poster.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Cargar Imagen"
+    }
+  },
+  "273": {
+    "inputs": {
+      "filename_prefix": "video/LTX_2.3_i2v",
+      "format": "mp4",
+      "codec": "h264",
+      "video-preview": "",
+      "video": [
+        "267:242",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "Guardar video"
+    }
+  },
+  "267:216": {
+    "inputs": {
+      "noise_seed": 42
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "Ruido aleatorio"
+    }
+  },
+  "267:237": {
+    "inputs": {
+      "noise_seed": 0
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "Ruido aleatorio"
+    }
+  },
+  "267:229": {
+    "inputs": {
+      "video_latent": [
+        "267:230",
+        0
+      ],
+      "audio_latent": [
+        "267:217",
+        1
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent"
+    }
+  },
+  "267:221": {
+    "inputs": {
+      "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
+    },
+    "class_type": "LTXVAudioVAELoader",
+    "_meta": {
+      "title": "Cargador de LTXV Audio VAE"
+    }
+  },
+  "267:243": {
+    "inputs": {
+      "text_encoder": "gemma_3_12B_it_fp4_mixed.safetensors",
+      "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors",
+      "device": "default"
+    },
+    "class_type": "LTXAVTextEncoderLoader",
+    "_meta": {
+      "title": "Cargador de codificador de texto LTXV Audio"
+    }
+  },
+  "267:246": {
+    "inputs": {
+      "sampler_name": "euler_cfg_pp"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "267:211": {
+    "inputs": {
+      "sigmas": "0.85, 0.7250, 0.4219, 0.0"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "ManualSigmas"
+    }
+  },
+  "267:236": {
+    "inputs": {
+      "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Cargar Punto de Control"
+    }
+  },
+  "267:213": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "267:232",
+        0
+      ],
+      "positive": [
+        "267:212",
+        0
+      ],
+      "negative": [
+        "267:212",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "GuíaCFG"
+    }
+  },
+  "267:215": {
+    "inputs": {
+      "noise": [
+        "267:237",
+        0
+      ],
+      "guider": [
+        "267:231",
+        0
+      ],
+      "sampler": [
+        "267:209",
+        0
+      ],
+      "sigmas": [
+        "267:252",
+        0
+      ],
+      "latent_image": [
+        "267:222",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "267:212": {
+    "inputs": {
+      "positive": [
+        "267:239",
+        0
+      ],
+      "negative": [
+        "267:239",
+        1
+      ],
+      "latent": [
+        "267:217",
+        0
+      ]
+    },
+    "class_type": "LTXVCropGuides",
+    "_meta": {
+      "title": "LTXVCropGuides"
+    }
+  },
+  "267:232": {
+    "inputs": {
+      "lora_name": "ltx-2.3-22b-distilled-lora-384.safetensors",
+      "strength_model": 0.5,
+      "model": [
+        "267:236",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "CargadorLoRAModeloSolo"
+    }
+  },
+  "267:235": {
+    "inputs": {
+      "longer_edge": 1536,
+      "images": [
+        "267:238",
+        0
+      ]
+    },
+    "class_type": "ResizeImagesByLongerEdge",
+    "_meta": {
+      "title": "Redimensionar imágenes por el borde más largo"
+    }
+  },
+  "267:253": {
+    "inputs": {
+      "samples": [
+        "267:217",
+        0
+      ],
+      "upscale_model": [
+        "267:233",
+        0
+      ],
+      "vae": [
+        "267:236",
+        2
+      ]
+    },
+    "class_type": "LTXVLatentUpsampler",
+    "_meta": {
+      "title": "LTXVLatentUpsampler"
+    }
+  },
+  "267:230": {
+    "inputs": {
+      "strength": 1,
+      "bypass": [
+        "267:201",
+        0
+      ],
+      "vae": [
+        "267:236",
+        2
+      ],
+      "image": [
+        "267:248",
+        0
+      ],
+      "latent": [
+        "267:253",
+        0
+      ]
+    },
+    "class_type": "LTXVImgToVideoInplace",
+    "_meta": {
+      "title": "LTXVImgToVideoInplace"
+    }
+  },
+  "267:248": {
+    "inputs": {
+      "img_compression": 18,
+      "image": [
+        "267:235",
+        0
+      ]
+    },
+    "class_type": "LTXVPreprocess",
+    "_meta": {
+      "title": "LTXVPreprocesar"
+    }
+  },
+  "267:238": {
+    "inputs": {
+      "resize_type": "scale dimensions",
+      "resize_type.width": [
+        "267:257",
+        0
+      ],
+      "resize_type.height": [
+        "267:258",
+        0
+      ],
+      "resize_type.crop": "center",
+      "scale_method": "lanczos",
+      "input": [
+        "269",
+        0
+      ]
+    },
+    "class_type": "ResizeImageMaskNode",
+    "_meta": {
+      "title": "Redimensionar Imagen/Máscara"
+    }
+  },
+  "267:209": {
+    "inputs": {
+      "sampler_name": "euler_ancestral_cfg_pp"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "267:256": {
+    "inputs": {
+      "expression": "a/2",
+      "values.a": [
+        "267:257",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression"
+    }
+  },
+  "267:259": {
+    "inputs": {
+      "expression": "a/2",
+      "values.a": [
+        "267:258",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression"
+    }
+  },
+  "267:228": {
+    "inputs": {
+      "width": [
+        "267:256",
+        1
+      ],
+      "height": [
+        "267:259",
+        1
+      ],
+      "length": [
+        "267:225",
+        0
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLTXVLatentVideo",
+    "_meta": {
+      "title": "EmptyLTXVLatentVideo"
+    }
+  },
+  "267:249": {
+    "inputs": {
+      "strength": 0.7,
+      "bypass": [
+        "267:201",
+        0
+      ],
+      "vae": [
+        "267:236",
+        2
+      ],
+      "image": [
+        "267:248",
+        0
+      ],
+      "latent": [
+        "267:228",
+        0
+      ]
+    },
+    "class_type": "LTXVImgToVideoInplace",
+    "_meta": {
+      "title": "LTXVImgToVideoInplace"
+    }
+  },
+  "267:220": {
+    "inputs": {
+      "samples": [
+        "267:218",
+        1
+      ],
+      "audio_vae": [
+        "267:221",
+        0
+      ]
+    },
+    "class_type": "LTXVAudioVAEDecode",
+    "_meta": {
+      "title": "Decodificar LTXV Audio VAE"
+    }
+  },
+  "267:261": {
+    "inputs": {
+      "expression": "a",
+      "values.a": [
+        "267:260",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression"
+    }
+  },
+  "267:258": {
+    "inputs": {
+      "value": 720
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Height"
+    }
+  },
+  "267:260": {
+    "inputs": {
+      "value": 24
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Frame Rate"
+    }
+  },
+  "267:225": {
+    "inputs": {
+      "value": 242
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Length"
+    }
+  },
+  "267:201": {
+    "inputs": {
+      "value": false
+    },
+    "class_type": "PrimitiveBoolean",
+    "_meta": {
+      "title": "Switch to Text to Video?"
+    }
+  },
+  "267:266": {
+    "inputs": {
+      "value": "En una pradera soleada bajo una luz suave y difusa, la modelo asiática de la imagen, con su expresión serena y cabello oscuro, se encuentra inicialmente en la pose con las manos sobre el perfume como en la referencia. Ella mueve suavemente sus manos hacia abajo, agarra el frasco de perfume Guerlain Aqua Allegoria Granada Salvia exacto e idéntico por el cuerpo y lo levanta con orgullo, sosteniéndolo en su mano derecha frente a su rostro. [Este es el punto de fidelidad bloqueado: el frasco es idéntico, con su líquido rosado, malla hexagonal dorada y tapón de bola dorado]. La cámara hace un zoom in lento, uniforme y suave, acercándose hasta un primer plano del frasco en su mano, resaltando la etiqueta clara, la textura de la malla dorada y el color del líquido. Ella sonríe ligeramente, mira a cámara y habla con una voz suave, nítida y clara, \"[Primera parte del diálogo] Hecho de alegría\". Hace una micropausa física, mirando el frasco, y continúa, \"[Segunda parte del diálogo] Granada y salvia irresistibles\". Luego, la cámara hace un zoom out lento y uniforme, alejándose hasta volver a una toma media original, donde la modelo sostiene el perfume frente a ella con una expresión de satisfacción. Se escucha el murmullo lejano de la pradera, el sutil sonido del rozar del vidrio con su piel, un suave zumbido de abejas y una partitura de cuerdas ligera y etérea."
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "Prompt"
+    }
+  },
+  "267:240": {
+    "inputs": {
+      "text": [
+        "267:266",
+        0
+      ],
+      "clip": [
+        "267:243",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Codificar Texto CLIP (Prompt)"
+    }
+  },
+  "267:239": {
+    "inputs": {
+      "frame_rate": [
+        "267:261",
+        0
+      ],
+      "positive": [
+        "267:240",
+        0
+      ],
+      "negative": [
+        "267:247",
+        0
+      ]
+    },
+    "class_type": "LTXVConditioning",
+    "_meta": {
+      "title": "LTXVConditioning"
+    }
+  },
+  "267:222": {
+    "inputs": {
+      "video_latent": [
+        "267:249",
+        0
+      ],
+      "audio_latent": [
+        "267:214",
+        0
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent"
+    }
+  },
+  "267:214": {
+    "inputs": {
+      "frames_number": [
+        "267:225",
+        0
+      ],
+      "frame_rate": [
+        "267:261",
+        1
+      ],
+      "batch_size": 1,
+      "audio_vae": [
+        "267:221",
+        0
+      ]
+    },
+    "class_type": "LTXVEmptyLatentAudio",
+    "_meta": {
+      "title": "LTXV Audio Latente Vacío"
+    }
+  },
+  "267:252": {
+    "inputs": {
+      "sigmas": "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "ManualSigmas"
+    }
+  },
+  "267:217": {
+    "inputs": {
+      "av_latent": [
+        "267:215",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXVSeparateAVLatent"
+    }
+  },
+  "267:219": {
+    "inputs": {
+      "noise": [
+        "267:216",
+        0
+      ],
+      "guider": [
+        "267:213",
+        0
+      ],
+      "sampler": [
+        "267:246",
+        0
+      ],
+      "sigmas": [
+        "267:211",
+        0
+      ],
+      "latent_image": [
+        "267:229",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "267:218": {
+    "inputs": {
+      "av_latent": [
+        "267:219",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXVSeparateAVLatent"
+    }
+  },
+  "267:242": {
+    "inputs": {
+      "fps": [
+        "267:261",
+        0
+      ],
+      "images": [
+        "267:251",
+        0
+      ],
+      "audio": [
+        "267:220",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Crear video"
+    }
+  },
+  "267:233": {
+    "inputs": {
+      "model_name": "ltx-2.3-spatial-upscaler-x2-1.0.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "Cargar modelo de escalado Latent"
+    }
+  },
+  "267:257": {
+    "inputs": {
+      "value": 1280
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Width"
+    }
+  },
+  "267:247": {
+    "inputs": {
+      "text": "pc game, console game, video game, cartoon, childish, ugly",
+      "clip": [
+        "267:243",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Codificar Texto CLIP (Prompt)"
+    }
+  },
+  "267:231": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "267:232",
+        0
+      ],
+      "positive": [
+        "267:239",
+        0
+      ],
+      "negative": [
+        "267:239",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "GuíaCFG"
+    }
+  },
+  "267:251": {
+    "inputs": {
+      "tile_size": 768,
+      "overlap": 64,
+      "temporal_size": 4096,
+      "temporal_overlap": 4,
+      "samples": [
+        "267:218",
+        0
+      ],
+      "vae": [
+        "267:236",
+        2
+      ]
+    },
+    "class_type": "VAEDecodeTiled",
+    "_meta": {
+      "title": "VAE Decodificar (Mosaico)"
+    }
+  }
+}

@@ -58,12 +58,18 @@ def build_workflow(input_filename, job_input):
     with open(WORKFLOW_PATH, "r", encoding="utf-8") as f:
         workflow = json.load(f)
 
+    # 1. Extraemos las variables que llegan en el payload (job_input)
     positive_prompt = job_input.get("positive_prompt", "A beautiful landscape in 4k")
     negative_prompt = job_input.get("negative_prompt", "ugly, low resolution, blurry")
     seed = job_input.get("seed", random.randint(1, 999999999999999))
     width = job_input.get("width", 1280)
     height = job_input.get("height", 720)
+    
+    # NUEVA FEATURE: Capturamos los frames. Si no se envían, usa 242 por defecto.
+    frames = job_input.get("frames", 242)
 
+    # 2. Inyectamos los valores en los nodos del JSON
+    workflow["267:225"]["inputs"]["value"] = frames  # <-- AQUÍ SE MODIFICA LA DURACIÓN
     workflow["269"]["inputs"]["image"] = input_filename
     workflow["267:266"]["inputs"]["value"] = positive_prompt
     workflow["267:247"]["inputs"]["text"] = negative_prompt

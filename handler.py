@@ -84,7 +84,11 @@ def build_workflow(input_filename, job_input):
 def extract_output(history):
     outputs = history.get("outputs", {})
     node_output = outputs.get(OUTPUT_NODE_ID, {})
-    video_list = node_output.get("gifs", []) or node_output.get("images", [])
+    video_list = (
+        node_output.get("videos", [])
+        or node_output.get("gifs", [])
+        or node_output.get("images", [])
+    )
 
     if not video_list:
         raise RuntimeError(
